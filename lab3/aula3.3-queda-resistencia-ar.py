@@ -8,38 +8,37 @@ pygame.init()
 LARGURA = 640
 ALTURA = 480 
 FPS = 60
-COR = (255, 255, 0)
+COR_CIRCULO = (255, 255, 0)
+BACKGROUND = (0, 0, 0)
+
 janela = pygame.display.set_mode((LARGURA, ALTURA))
 
 #Titulo
 pygame.display.set_caption("Olá, mundo!")
 clock = pygame.time.Clock()
 
-VELOCIDADE = 0
-
-#Cicle
+#Parâmetro K
 raio = 10
 massa = 1.0 #kg
 rho = 1.293 #kg/m^3
 c = 0.47 #esfera
 
-area = 3.14 * (raio/100) ** 2
-
+area = 3.14 * (raio/100) ** 2 #Circulo 
+VELOCIDADE = 0
 g = 9.8
-fa = 0.0
 v0 = VELOCIDADE
+dt = 0.09
+
 pos_x = 320
 pos_y = 10
-dt = 0.09
+
 is_launch = False
 
 while True:
     
-    #dt = clock.tick(FPS)     
-    
     janela.fill((0, 0, 0))
     
-    pygame.draw.circle(janela, COR, (pos_x, pos_y), 10)
+    pygame.draw.circle(janela, COR_CIRCULO, (pos_x, pos_y), 10)
     
     # Checando a ocorrencia de eventos
     for event in pygame.event.get():
@@ -61,9 +60,8 @@ while True:
         
         #k
         k = 0.5 * rho * c * area
-        
-        #fa
-        #fa = k * v0**2
+                
+        fa = k * v0**2
         
         #aceleracao
         a = g - (k * (v0**2/2.0))
@@ -73,7 +71,7 @@ while True:
         
         print(v0)
         
-        #
+        #S = S0 + v * t + a*(t^2/2)
         pos_y = pos_y + v0 * dt + (0.5) * a * dt ** 2
         
     clock.tick(FPS)
