@@ -22,17 +22,21 @@ clock = pygame.time.Clock()
 VELOCIDADE = 0
 g = 9.8
 v0 = VELOCIDADE
+
 pos_x = 320
 pos_y = 10
+
 is_launch = False
 
-#Funcar de lancamento vertical
+#Funcao de queda livre
 def queda_livre(dt, g):
     
     global v0
-    
+
+    #S = v0*t + g(t^2/2)
     y = v0 * dt + (0.5) * g * dt**2
-    
+
+    #v = v0 + g*t
     v0 = v0 + g * dt
     
     return y
@@ -59,8 +63,10 @@ while True:
                 is_launch = True
         
     if is_launch:
-        pygame.draw.circle(janela, COR, (pos_x, pos_y), 10)
         
+        pygame.draw.circle(janela, COR, (pos_x, pos_y), 10)
+
+        #S = S0 + v*t + g*(t^2/2)
         pos_y = pos_y + queda_livre(dt * 0.005, g)
         
     if pos_y >= ALTURA:
